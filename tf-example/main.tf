@@ -33,7 +33,7 @@ resource "aws_instance" "carmacloud-test" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/cc.sh",
-      "/home/ubuntu/cc.sh args",
+      "./home/ubuntu/cc.sh",
     ]
   }    
 tags = {
