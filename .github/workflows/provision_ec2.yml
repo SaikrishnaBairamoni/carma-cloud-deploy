@@ -35,24 +35,6 @@ jobs:
           terraform validate
           terraform plan
           terraform apply -auto-approve
-          echo PUBLIC_IP=$(terraform output public_ip) >> $GITHUB_ENV
-          sleep 300
-          
-      - name: Executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.PUBLIC_IP }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            sudo su
-            sudo apt update
-            #sudo apt install openjdk-11-jdk-headless
-            #sudo source .bashrc 
-            sudo mkdir tmp && cd tmp
-            wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz
-            tar -xzf apache-tomcat-9.0.34.tar.gz
-            mv apache-tomcat-9.0.34 tomcat
 
       - name: Terraform destroy
         id: destroy
