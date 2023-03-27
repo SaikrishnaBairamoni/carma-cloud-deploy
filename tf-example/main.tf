@@ -21,7 +21,7 @@ resource "aws_instance" "carmacloud-test" {
   key_name      = "myJune222Key"  
   connection {
     type     = "ssh"
-    user     = "root"
+    user     = "ubuntu"
     private_key = "${file("./myJune222Key.pem")}"
     host     = self.public_ip
   }    
