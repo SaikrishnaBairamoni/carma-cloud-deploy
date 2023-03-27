@@ -22,7 +22,7 @@ resource "aws_instance" "carmacloud-test" {
   connection {
     type     = "ssh"
     user     = "root"
-    private_key = "${file("/tf-example/myJune222Key.pem")}"
+    private_key = "${file("./myJune222Key.pem")}"
     host     = self.public_ip
   }    
   provisioner "file" {
