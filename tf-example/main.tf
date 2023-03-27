@@ -19,6 +19,12 @@ resource "aws_instance" "carmacloud-test" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   key_name      = "myJune222Key"  
+  connection {
+    type     = "ssh"
+    user     = "root"
+    private_key = "${file("/tf-example/myJune222Key.pem")}"
+    host     = self.public_ip
+  }    
   provisioner "file" {
     source      = "cc.sh"
     destination = "/home/ubuntu/cc.sh"
