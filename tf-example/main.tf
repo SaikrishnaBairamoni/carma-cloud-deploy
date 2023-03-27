@@ -18,17 +18,18 @@ provider "aws" {
 resource "aws_instance" "carmacloud-test" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
-  key_name      = "myJune222Key"
-  user_data = <<-EOL
-  #!/bin/bash -xe
-  echo hello
-  lsb_release -a
-  sudo apt update
-  sudo mkdir tmp && cd tmp
-  wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz
-  tar -xzf apache-tomcat-9.0.34.tar.gz
-  mv apache-tomcat-9.0.34 tomcat
-  EOL    
+  key_name      = "myJune222Key"  
+  provisioner "file" {
+    source      = "cc.sh"
+    destination = "/home/ubuntu/cc.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /home/ubuntu/cc.sh",
+      "/home/ubuntu/cc.sh args",
+    ]
+  }    
 tags = {
     Name = var.ec2_name
   }
