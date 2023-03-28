@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo su
+
 sudo apt update
 sudo mkdir tmp && cd tmp
 wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz
