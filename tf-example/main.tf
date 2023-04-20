@@ -15,7 +15,7 @@ owners = ["099720109477"] # Canonical
 provider "aws" {
   region  = "us-east-2"
 }
-resource "aws_instance" "carmacloud-test" {{
+resource "aws_instance" "carmacloud-test" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   key_name      = "myJune222Key"  
@@ -33,6 +33,18 @@ resource "aws_s3_bucket" "b1" {
     Name        = "ccdata"
     Environment = "Dev"
   }    
+
+resource "aws_s3_bucket_object" "object" {
+  bucket = aws_s3_bucket.b1.id
+  key    = "cloud-data"
+  acl    = "private"  # or can be "public-read"
+  source = "/home/ubuntu/cc.sh"
+  etag = filemd5("/home/ubuntu/cc.sh")
+}   
+tags = {
+    Name = var.ec2_name
+  }
+
   provisioner "file" {
     source      = "cc.sh"
     destination = "/home/ubuntu/cc.sh"
@@ -46,16 +58,5 @@ resource "aws_s3_bucket" "b1" {
       "./cc.sh",
     ]
   } 
-resource "aws_s3_bucket_object" "object" {
-  bucket = aws_s3_bucket.b1.id
-  key    = "cloud-data"
-  acl    = "private"  # or can be "public-read"
-  source = "/home/ubuntu/cc.sh"
-  etag = filemd5("/home/ubuntu/cc.sh")
-}   
-tags = {
-    Name = var.ec2_name
-  }
 
 
-}
