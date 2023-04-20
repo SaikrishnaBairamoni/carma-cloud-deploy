@@ -46,14 +46,9 @@ resource "aws_s3_bucket" "b1" {
     Name        = "ccdata"
     Environment = "Dev"
   }    
+  provisioner "local-exec" {
+     command = "aws s3 cp /home/ubuntu/cc.sh ${aws_s3_bucket.my-bucket.id}"
+  }  
 }
-resource "aws_s3_bucket_object" "object" {
-  bucket = aws_s3_bucket.b1.id
-  key    = "cloud-data"
-  acl    = "private"  # or can be "public-read"
-  source = "/home/ubuntu/cc.sh"
-  etag = filemd5("/home/ubuntu/cc.sh")
-}   
-  
 
 
