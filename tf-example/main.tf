@@ -25,19 +25,11 @@ resource "aws_instance" "carmacloud-test" {
     private_key = "${file("./myJune222Key.pem")}"
     host     = self.public_ip
   } 
-}  
-resource "aws_s3_bucket" "b1" {
- bucket = "s3-terraform-bucket-lab"
- acl    = "private"   # or can be "public-read"
-  tags = {
-    Name        = "ccdata"
-    Environment = "Dev"
-  }    
- provisioner "file" {
+   provisioner "file" {
     source      = "cc.sh"
     destination = "/home/ubuntu/cc.sh"
   }
-}
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/cc.sh",
@@ -46,6 +38,15 @@ resource "aws_s3_bucket" "b1" {
       "./cc.sh",
     ]
   }
+}  
+resource "aws_s3_bucket" "b1" {
+ bucket = "s3-terraform-bucket-lab"
+ acl    = "private"   # or can be "public-read"
+  tags = {
+    Name        = "ccdata"
+    Environment = "Dev"
+  }    
+}
 resource "aws_s3_bucket_object" "object" {
   bucket = aws_s3_bucket.b1.id
   key    = "cloud-data"
