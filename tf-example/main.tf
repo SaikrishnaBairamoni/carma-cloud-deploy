@@ -39,7 +39,7 @@ resource "aws_instance" "carmacloud-test" {
     ]
   }
 }  
-resource "aws_s3_bucket" "b1" {
+resource "aws_s3_bucket" "carma" {
  bucket = "s3-terraform-bucket-lab"
  acl    = "private"   # or can be "public-read"
   tags = {
@@ -47,7 +47,7 @@ resource "aws_s3_bucket" "b1" {
     Environment = "Dev"
   }    
   provisioner "local-exec" {
-     command = "aws s3 cp /home/ubuntu/cc.sh ${aws_s3_bucket.b1.id}"
+     command = "aws s3 cp /home/ubuntu/cc.sh ${aws_s3_bucket.carma.id}"
   }  
 }
 
