@@ -40,7 +40,7 @@ resource "aws_instance" "carmacloud-test" {
   }
 }  
 resource "aws_s3_bucket" "carma" {
- bucket = "s3-terraform-bucket-lab"
+ bucket = "s3-carma-cloud-dev"
  acl    = "private"   # or can be "public-read"
   tags = {
     Name        = "ccdata"
