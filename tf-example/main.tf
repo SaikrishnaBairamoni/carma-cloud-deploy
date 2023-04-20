@@ -36,7 +36,7 @@ resource "aws_instance" "carmacloud-test" {
       "sudo /home/ubuntu/cc.sh args",
       "ls -la",
       "./cc.sh",
-      "sudo apt install python3-pip",
+      "sudo apt install python3-pip -y",
       "sudo apt-get install s3cmd -y",
       "pip3 install awscli --ignore-installed six",
       "aws s3 cp /home/ubuntu/tomcat s3://s3-carma-cloud-dev/ --recursive",
