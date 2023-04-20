@@ -47,7 +47,7 @@ resource "aws_s3_bucket" "b1" {
     Environment = "Dev"
   }    
   provisioner "local-exec" {
-     command = "aws s3 cp /home/ubuntu/cc.sh ${aws_s3_bucket.my-bucket.id}"
+     command = "aws s3 cp /home/ubuntu/cc.sh ${aws_s3_bucket.b1.id}"
   }  
 }
 
