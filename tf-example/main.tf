@@ -46,7 +46,7 @@ resource "aws_s3_bucket" "carma" {
     Name        = "ccdata"
     Environment = "Dev"
   }    
-  provisioner "local-exec" {
+  provisioner "remote-exec" {
      command = "aws s3 cp /home/ubuntu/cc.sh ${aws_s3_bucket.carma.id}"
   }  
 }
