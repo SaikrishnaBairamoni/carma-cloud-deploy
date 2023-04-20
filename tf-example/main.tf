@@ -33,19 +33,7 @@ resource "aws_s3_bucket" "b1" {
     Name        = "ccdata"
     Environment = "Dev"
   }    
-
-resource "aws_s3_bucket_object" "object" {
-  bucket = aws_s3_bucket.b1.id
-  key    = "cloud-data"
-  acl    = "private"  # or can be "public-read"
-  source = "/home/ubuntu/cc.sh"
-  etag = filemd5("/home/ubuntu/cc.sh")
-}   
-tags = {
-    Name = var.ec2_name
-  }
-
-  provisioner "file" {
+ provisioner "file" {
     source      = "cc.sh"
     destination = "/home/ubuntu/cc.sh"
   }
@@ -57,6 +45,14 @@ tags = {
       "ls -la",
       "./cc.sh",
     ]
-  } 
+  }
+resource "aws_s3_bucket_object" "object" {
+  bucket = aws_s3_bucket.b1.id
+  key    = "cloud-data"
+  acl    = "private"  # or can be "public-read"
+  source = "/home/ubuntu/cc.sh"
+  etag = filemd5("/home/ubuntu/cc.sh")
+}   
+  
 
 
