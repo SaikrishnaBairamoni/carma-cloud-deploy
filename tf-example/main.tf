@@ -37,25 +37,16 @@ resource "aws_instance" "carmacloud-test" {
       "ls -la",
       "./cc.sh",
       "sudo apt install python3-pip -y",
-      "sudo apt-get install s3cmd -y",
-      "pip3 install awscli --ignore-installed six -y",
-      "curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"",
-      "apt install unzip",
-      "unzip awscliv2.zip",
-      "sudo ./aws/install",
-      "aws configure list",
-      "aws s3 cp /home/ubuntu/tomcat s3://s3-carma-cloud-dev/ --recursive",
     ]
   }
 }  
-resource "aws_s3_bucket" "carma" {
- bucket = "s3-carma-cloud-dev"
- acl    = "private"   # or can be "public-read"
-  tags = {
-    Name        = "ccdata"
-    Environment = "Dev"
-  }    
-
+resource "aws_volume_attachment" "cc_test" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.cc_test.id
+  instance_id = aws_instance.carmacloud-test.id
 }
-
+resource "aws_ebs_volume" "cc_test" {
+  availability_zone = "us-west-2a"
+  size              = 1
+}
 
