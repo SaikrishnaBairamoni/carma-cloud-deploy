@@ -15,6 +15,12 @@ owners = ["099720109477"] # Canonical
 provider "aws" {
   region  = "us-east-2"
 }
+resource "aws_volume_attachment" "cc_test" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.cc_test.id
+  instance_id = aws_instance.carmacloud-test.id
+}
+
 resource "aws_instance" "carmacloud-test" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
@@ -40,13 +46,9 @@ resource "aws_instance" "carmacloud-test" {
     ]
   }
 }  
-resource "aws_volume_attachment" "cc_test" {
-  device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.cc_test.id
-  instance_id = aws_instance.carmacloud-test.id
-}
+
 resource "aws_ebs_volume" "cc_test" {
-  availability_zone = "us-east-2a"
+  availability_zone = "us-east-2b"
   size              = 1
 }
 
