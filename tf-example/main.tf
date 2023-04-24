@@ -46,7 +46,7 @@ resource "aws_volume_attachment" "cc_test" {
   instance_id = aws_instance.carmacloud-test.id
 }
 resource "aws_ebs_volume" "cc_test" {
-  availability_zone = "us-east-2"
+  availability_zone = "us-east-2a"
   size              = 1
 }
 
