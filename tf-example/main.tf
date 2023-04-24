@@ -39,8 +39,12 @@ resource "aws_instance" "carmacloud-test" {
       "sudo apt install python3-pip -y",
       "sudo apt-get install s3cmd -y",
       "pip3 install awscli --ignore-installed six -y",
+      "curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"",
+      "apt install unzip",
+      "unzip awscliv2.zip",
+      "sudo ./aws/install",
+      "aws configure list",
       "aws s3 cp /home/ubuntu/tomcat s3://s3-carma-cloud-dev/ --recursive",
-      # "aws s3 cp /home/ubuntu/cc.sh ${aws_s3_bucket.carma.id}",
     ]
   }
 }  
