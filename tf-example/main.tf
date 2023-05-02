@@ -17,8 +17,8 @@ provider "aws" {
 }
 resource "aws_volume_attachment" "cc_test" {
   device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.cc_test.id
-  instance_id = aws_instance.carmacloud-test.id
+  volume_id   = "${aws_ebs_volume.cc_test.id}"
+  instance_id = "${aws_instance.carmacloud-test.id}"
 }
 
 resource "aws_instance" "carmacloud-test" {
@@ -50,6 +50,6 @@ resource "aws_instance" "carmacloud-test" {
 
 resource "aws_ebs_volume" "cc_test" {
   availability_zone = "us-east-2a"
-  size              = 1
+  size              = 2
 }
 
