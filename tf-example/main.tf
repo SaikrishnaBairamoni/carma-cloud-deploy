@@ -15,11 +15,6 @@ owners = ["099720109477"] # Canonical
 provider "aws" {
   region  = "us-east-2"
 }
-resource "aws_volume_attachment" "cc_test" {
-  device_name = "/dev/sdh"
-  volume_id   = "${aws_ebs_volume.cc_test.id}"
-  instance_id = "${aws_instance.carmacloud-test.id}"
-}
 
 resource "aws_instance" "carmacloud-test" {
   ami           = data.aws_ami.ubuntu.id
@@ -44,18 +39,18 @@ resource "aws_instance" "carmacloud-test" {
       "ls -la",
       "./cc.sh",
       "sudo apt install python3-pip -y",
+      "mkdir carmacloud-logs && cd carmacloud-logs",
       "sudo mkdir tmp && cd tmp",
       "wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz",
       "tar -xzf apache-tomcat-9.0.34.tar.gz",
       "mv apache-tomcat-9.0.34 tomcat",
       "mv tomcat /home/ubuntu/carmacloud-logs",
+      "fdisk -l",
+      "df -h",
+      "mount /dev/xvdh1 /home/ubuntu/carmacloud-logs",
+      "mv /home/ubuntu/tmp/tomcat /home/ubuntu/carmacloud-logs",
       "df -h",
     ]
   }
 }  
-
-resource "aws_ebs_volume" "cc_test" {
-  availability_zone = "us-east-2a"
-  size              = 2
-}
 
