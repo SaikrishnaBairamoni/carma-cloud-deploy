@@ -24,6 +24,7 @@ resource "aws_volume_attachment" "cc_test" {
 resource "aws_instance" "carmacloud-test" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
+  availability_zone = "us-east-2a"
   key_name      = "myJune222Key"  
   connection {
     type     = "ssh"
@@ -48,7 +49,7 @@ resource "aws_instance" "carmacloud-test" {
 }  
 
 resource "aws_ebs_volume" "cc_test" {
-  availability_zone = "us-east-2b"
+  availability_zone = "us-east-2a"
   size              = 1
 }
 
