@@ -44,6 +44,12 @@ resource "aws_instance" "carmacloud-test" {
       "ls -la",
       "./cc.sh",
       "sudo apt install python3-pip -y",
+      "sudo mkdir tmp && cd tmp",
+      "wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.34/bin/apache-tomcat-9.0.34.tar.gz",
+      "tar -xzf apache-tomcat-9.0.34.tar.gz",
+      "mv apache-tomcat-9.0.34 tomcat",
+      "mv tomcat /home/ubuntu/carmacloud-logs",
+      "df -h",
     ]
   }
 }  
